@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>index</title>
+		<meta name="description" content="" />
+		<meta name="author" content="jmartel" />
+		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<script src="../jsFormValidation.js"></script>
+		<script>
+		
+		enregistreGestionEvenement(window, 'load', function(){
+			var oFormVal = new FormValidator(document.getElementById('f1'));
+			console.log(oFormVal.validity);
+			console.log(oFormVal.isValidity());
+			console.log(oFormVal.validity);
+			oFormVal.form.setAttribute("novalidate","");
+			
+			oFormVal.addSubmitCallback(function(){
+				console.log(oFormVal.validateAll());
+				console.log('call1');
+			});
+			oFormVal.addSubmitCallback(function(){console.log('call2')});
+			oFormVal.addSubmitCallback(function(){console.log('call3')});
+			oFormVal.addSubmitCallback(function(){console.log('call4')});
+			
+			
+		});
+		
+		function enregistreGestionEvenement(cible, evenement, gestionnaire)
+		{
+			if(cible.addEventListener)		// Si la méthode existe, donc tous sauf IE8 et moins
+			{
+				cible.addEventListener(evenement, gestionnaire, false);
+			}
+			else	// Si IE9 et moins
+			{
+				cible.attachEvent("on"+evenement, gestionnaire);
+			}
+		} 
+		
+		</script>
+	</head>
+	<body>
+		<div>
+			<header>
+				<h1>FormValidator - Unit test</h1>
+			</header>
+			<nav>
+				
+			</nav>
+			<div>
+				<form id="f1">
+					<label for="prenom">Prénom : </label><br>
+					<input class="" name="prenom" type="text" data-type="alpha"/> <!-- data-required="required" required --> <br />
+					<input type="submit" value="Soumettre f1" />
+				</form>
+				<form id="f2">
+					<label for="nom">Nom : </label><br><input name="nom" type="text" data-type="alpha" required /><br />
+					<label for="prenom">Prénom : </label><br><input class="" name="prenom" type="text" data-type="alpha" required /><br />
+					<label for="courriel">Courriel : </label><br><input name="courriel" type="email" data-type="email" required /><br />
+				<input type="submit" value="Soumettre f2" />
+				</form>	
+				<form id="f3">			
+					<p>Type de rendez-vous :<br />
+					
+					  <label>
+					<input id="typerdv_0" name="typerdv" type="radio" value="osteo" checked required/>
+					Ostéopathie</label>
+					  <br />
+					  <label>
+					<input id="typerdv_1" name="typerdv" type="radio" value="nutrition" required/>
+					Consultation en nutrition</label>
+					  <br />
+					  <label>
+					<input id="typerdv_2" name="typerdv" type="radio" value="programme" required/>
+					Élaboration de programme</label>
+					  <br />
+					  <label>
+					<input id="typerdv_3" name="typerdv" type="radio" value="entrainement" required/>
+					Entrainement privé</label>
+					</p>
+					<p>1er choix<br>
+					<input id="datepicker1" name="date1" type="date" data-type="date" data-format="nnnn/nn/nn" required /> <select id="heure1" name="heure1" data-type="heure" data-format="nn:nn" required>
+					  <option value="07:00">07:00</option>
+					  <option value="08:15">08:15</option>
+					  <option value="09:45">09:45</option>
+					  <option value="11:00">11:00</option>
+					  <option value="12:45">12:45</option>
+					  <option value="14:00">14:00</option>
+					  <option value="15:30">15:30</option>
+					  <option value="16:45">16:45</option>
+					</select>
+					</p>
+					<p>2e choix<br>
+					<input id="datepicker2" name="date2" type="date" data-type="date" data-format="nnnn/nn/nn" /><select id="heure2" name="heure2" data-type="heure" data-format="nn:nn" >
+					<option value="--:--">--:--</option>
+					<option value="07:00">07:00</option>
+					<option value="08:15">08:15</option>
+					<option value="09:45">09:45</option>
+					<option value="11:00">11:00</option>
+					<option value="12:45">12:45</option>
+					<option value="14:00">14:00</option>
+					<option value="15:30">15:30</option>
+					<option value="16:45">16:45</option>
+					</select></p>
+					<p id="ajaxMessage"></p>
+					<input type="submit" value="Soumettre f3" />
+				</form>
+				
+				
+			</div>
+			<footer>
+				<p>
+					&copy; Copyright  by jmartel
+				</p>
+			</footer>
+		</div>
+	</body>
+</html>
